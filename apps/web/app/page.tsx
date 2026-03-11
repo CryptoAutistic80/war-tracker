@@ -76,7 +76,7 @@ export default async function HomePage({ searchParams }: HomePageProps) {
             gridTemplateColumns: '280px minmax(0, 1fr)',
           }}
         >
-          <FilterPanel regions={data.regions} providers={data.providers} />
+          <FilterPanel regions={data.regions} providers={data.providers} currentFilters={filters} />
           <ConflictList
             conflicts={data.conflicts}
             events={data.events}
