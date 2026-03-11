@@ -1,6 +1,7 @@
 import { randomUUID } from 'node:crypto';
 
 import type { NextRequest } from 'next/server';
+import { clusterModelVersion, scoreModelVersion } from '@war-tracker/ingest';
 import { internalJobRequestSchema } from '@war-tracker/validation';
 
 import { requireInternalJobAuth } from '../../../../lib/auth/requireInternalJobAuth';
@@ -40,6 +41,12 @@ export async function POST(request: NextRequest) {
     status: 'accepted',
     httpStatus: 202,
     counters: { received: 1, processed: 1 },
+    debug: {
+      scoringVersion: scoreModelVersion,
+      clusteringVersion: clusterModelVersion,
+      scoreReasons: ['request validated'],
+      heuristicInputs: { dryRun: jobInput.dryRun, limit: jobInput.limit },
+    },
   });
 }
 
@@ -58,6 +65,10 @@ export async function GET(request: NextRequest) {
     error: {
       code: 'UNREACHABLE',
       message: 'GET should always be rejected by method guard',
+    },
+    debug: {
+      scoringVersion: scoreModelVersion,
+      clusteringVersion: clusterModelVersion,
     },
   });
 }

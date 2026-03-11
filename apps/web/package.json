@@ -14,7 +14,8 @@
     "next": "^15.0.3",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "@war-tracker/validation": "workspace:*"
+    "@war-tracker/validation": "workspace:*",
+    "@war-tracker/ingest": "workspace:*"
   },
   "devDependencies": {
     "@types/react": "19.2.14"
