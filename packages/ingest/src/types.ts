@@ -62,6 +62,23 @@ export interface EventReportRecord {
   metadata?: Record<string, unknown>;
 }
 
+export interface DecisionMetadata {
+  scoringVersion?: string;
+  clusteringVersion?: string;
+  scoreReasons?: string[];
+  heuristicInputs?: Record<string, unknown>;
+}
+
+export interface EventClusterRecord {
+  provider: string;
+  externalId: string;
+  eventReportExternalIds: string[];
+  clusterKey: string;
+  confidenceScore?: number;
+  decisionMetadata?: DecisionMetadata;
+  metadata?: Record<string, unknown>;
+}
+
 export interface RunMetrics {
   fetched: number;
   inserted: number;
@@ -74,6 +91,7 @@ export interface ProviderRunResult {
   rawArticles: RawArticleRecord[];
   normalizedArticles: NormalizedArticleRecord[];
   eventReports: EventReportRecord[];
+  eventClusters?: EventClusterRecord[];
   metrics: RunMetrics;
   cursor?: ProviderCursor;
   metadata?: Record<string, unknown>;

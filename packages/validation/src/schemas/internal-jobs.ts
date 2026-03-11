@@ -30,15 +30,25 @@ export const internalJobStatusCountersSchema = z.object({
   skipped: z.number().int().nonnegative(),
 });
 
+export const internalJobDebugMetadataSchema = z.object({
+  scoringVersion: z.string().optional(),
+  clusteringVersion: z.string().optional(),
+  scoreReasons: z.array(z.string()).optional(),
+  heuristicInputs: z.record(z.unknown()).optional(),
+});
+
 export const internalJobResponseSchema = z.object({
   ok: z.boolean(),
   runId: z.string(),
   status: z.enum(['accepted', 'completed', 'rejected', 'failed']),
   counters: internalJobStatusCountersSchema,
   error: internalJobErrorDetailSchema.nullable(),
+  debug: internalJobDebugMetadataSchema.optional(),
 });
 
 export type InternalJobRequest = z.infer<typeof internalJobRequestSchema>;
 export type InternalJobResponse = z.infer<typeof internalJobResponseSchema>;
 export type InternalJobStatusCounters = z.infer<typeof internalJobStatusCountersSchema>;
 export type InternalJobErrorDetail = z.infer<typeof internalJobErrorDetailSchema>;
+
+export type InternalJobDebugMetadata = z.infer<typeof internalJobDebugMetadataSchema>;

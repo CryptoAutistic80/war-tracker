@@ -1,6 +1,10 @@
 import { NextResponse } from 'next/server';
 
-import type { InternalJobErrorDetail, InternalJobStatusCounters } from '@war-tracker/validation';
+import type {
+  InternalJobDebugMetadata,
+  InternalJobErrorDetail,
+  InternalJobStatusCounters,
+} from '@war-tracker/validation';
 
 export type InternalJobStatus = 'accepted' | 'completed' | 'rejected' | 'failed';
 
@@ -17,6 +21,7 @@ export function internalJobJsonResponse(input: {
   status: InternalJobStatus;
   counters?: Partial<InternalJobStatusCounters>;
   error?: InternalJobErrorDetail | null;
+  debug?: InternalJobDebugMetadata;
   httpStatus?: number;
 }) {
   const body = {
@@ -28,6 +33,7 @@ export function internalJobJsonResponse(input: {
       ...input.counters,
     },
     error: input.error ?? null,
+    debug: input.debug,
   };
 
   return NextResponse.json(body, { status: input.httpStatus ?? 200 });

@@ -48,6 +48,9 @@ importers:
 
   apps/web:
     dependencies:
+      '@war-tracker/ingest':
+        specifier: workspace:*
+        version: link:../../packages/ingest
       '@war-tracker/validation':
         specifier: workspace:*
         version: link:../../packages/validation

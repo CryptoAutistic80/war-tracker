@@ -3,6 +3,7 @@ export const validationPackage = '@war-tracker/validation';
 export {
   internalJobAllowlistHeaderSchema,
   internalJobAuthorizationHeaderSchema,
+  internalJobDebugMetadataSchema,
   internalJobErrorDetailSchema,
   internalJobRequestSchema,
   internalJobResponseSchema,
@@ -10,6 +11,7 @@ export {
 } from './schemas/internal-jobs';
 
 export type {
+  InternalJobDebugMetadata,
   InternalJobErrorDetail,
   InternalJobRequest,
   InternalJobResponse,
