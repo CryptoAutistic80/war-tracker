@@ -1,12 +1,22 @@
+import Link from 'next/link';
+
 import { AppHeader } from '../components/AppHeader';
 import { ConflictList } from '../components/ConflictList';
 import { FilterPanel } from '../components/FilterPanel';
 import { KpiCard } from '../components/KpiCard';
 import { MapPreview } from '../components/MapPreview';
+import { Button, Card, CardBody } from '../components/ui';
+import { parseConflictFiltersFromSearchParams } from '../lib/api/filterRequests';
 import { loadHomePageData } from '../lib/homepage/loadHomePageData';
 
-export default async function HomePage() {
-  const data = await loadHomePageData();
+interface HomePageProps {
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+}
+
+export default async function HomePage({ searchParams }: HomePageProps) {
+  const resolvedSearchParams = await searchParams;
+  const filters = parseConflictFiltersFromSearchParams(resolvedSearchParams);
+  const data = await loadHomePageData(filters);
 
   return (
     <main>
@@ -35,6 +45,30 @@ export default async function HomePage() {
           ))}
         </section>
 
+        <Card as="section" aria-live="polite">
+          <CardBody
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              gap: 'var(--space-3)',
+              flexWrap: 'wrap',
+            }}
+          >
+            <strong>
+              {data.conflicts.length} conflicts shown
+              {data.isPartialResult ? ` (filtered from ${data.totalConflicts})` : ''}
+            </strong>
+            {data.hasActiveFilters ? (
+              <Link href="/" style={{ textDecoration: 'none' }}>
+                <Button variant="secondary" type="button">
+                  Reset filters
+                </Button>
+              </Link>
+            ) : null}
+          </CardBody>
+        </Card>
+
         <section
           style={{
             display: 'grid',
@@ -42,8 +76,12 @@ export default async function HomePage() {
             gridTemplateColumns: '280px minmax(0, 1fr)',
           }}
         >
-          <FilterPanel regions={data.regions} />
-          <ConflictList conflicts={data.conflicts} events={data.events} />
+          <FilterPanel regions={data.regions} providers={data.providers} currentFilters={filters} />
+          <ConflictList
+            conflicts={data.conflicts}
+            events={data.events}
+            isFiltered={data.hasActiveFilters}
+          />
         </section>
 
         <MapPreview conflicts={data.conflicts} />

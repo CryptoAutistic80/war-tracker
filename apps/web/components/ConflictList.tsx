@@ -18,6 +18,7 @@ interface ConflictListProps {
   conflicts: Conflict[];
   events: Event[];
   isLoading?: boolean;
+  isFiltered?: boolean;
 }
 
 function formatDate(isoDate: string) {
@@ -36,7 +37,12 @@ function statusTone(status: string): 'success' | 'warning' | 'danger' {
   return 'success';
 }
 
-export function ConflictList({ conflicts, events, isLoading = false }: ConflictListProps) {
+export function ConflictList({
+  conflicts,
+  events,
+  isLoading = false,
+  isFiltered = false,
+}: ConflictListProps) {
   if (isLoading) {
     return (
       <Card>
@@ -52,7 +58,11 @@ export function ConflictList({ conflicts, events, isLoading = false }: ConflictL
       <Card as="section">
         <CardBody>
           <h2 style={{ marginTop: 0 }}>Conflicts</h2>
-          <p>No conflicts available. Ingested conflicts will appear here.</p>
+          <p>
+            {isFiltered
+              ? 'No conflicts match your current filters. Try broadening your criteria.'
+              : 'No conflicts available. Ingested conflicts will appear here.'}
+          </p>
         </CardBody>
       </Card>
     );
@@ -75,6 +85,8 @@ export function ConflictList({ conflicts, events, isLoading = false }: ConflictL
               <TableHeaderCell>Conflict</TableHeaderCell>
               <TableHeaderCell>Region</TableHeaderCell>
               <TableHeaderCell>Status</TableHeaderCell>
+              <TableHeaderCell>Severity / Impact</TableHeaderCell>
+              <TableHeaderCell>Provider</TableHeaderCell>
               <TableHeaderCell>Events</TableHeaderCell>
               <TableHeaderCell>Updated</TableHeaderCell>
             </TableRow>
@@ -92,6 +104,10 @@ export function ConflictList({ conflicts, events, isLoading = false }: ConflictL
                   <TableCell>
                     <Badge tone={statusTone(conflict.status)}>{conflict.status}</Badge>
                   </TableCell>
+                  <TableCell>
+                    {conflict.severity} / {conflict.impact}
+                  </TableCell>
+                  <TableCell>{conflict.provider}</TableCell>
                   <TableCell>{eventCount}</TableCell>
                   <TableCell>{formatDate(conflict.updatedAt)}</TableCell>
                 </TableRow>
