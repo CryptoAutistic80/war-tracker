@@ -11,11 +11,12 @@
     "test": "tsx --test tests/public-visibility.test.ts"
   },
   "dependencies": {
+    "@sentry/nextjs": "^10.43.0",
+    "@war-tracker/ingest": "workspace:*",
+    "@war-tracker/validation": "workspace:*",
     "next": "^15.0.3",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "@war-tracker/validation": "workspace:*",
-    "@war-tracker/ingest": "workspace:*"
+    "react-dom": "^19.0.0"
   },
   "devDependencies": {
     "@types/react": "19.2.14"
