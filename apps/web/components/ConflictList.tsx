@@ -1,4 +1,18 @@
 import type { Conflict, Event } from '../lib/homepage/loadHomePageData';
+import {
+  Badge,
+  Card,
+  CardBody,
+  Skeleton,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeaderCell,
+  TableRow,
+  Tabs,
+  Tab,
+} from './ui';
 
 interface ConflictListProps {
   conflicts: Conflict[];
@@ -12,61 +26,80 @@ function formatDate(isoDate: string) {
   );
 }
 
+function statusTone(status: string): 'success' | 'warning' | 'danger' {
+  if (status === 'active') {
+    return 'danger';
+  }
+  if (status === 'escalating') {
+    return 'warning';
+  }
+  return 'success';
+}
+
 export function ConflictList({ conflicts, events, isLoading = false }: ConflictListProps) {
   if (isLoading) {
     return (
-      <div
-        aria-hidden
-        style={{
-          border: '1px solid #e5e7eb',
-          borderRadius: 8,
-          minHeight: 230,
-          background: '#f3f4f6',
-        }}
-      />
+      <Card>
+        <CardBody>
+          <Skeleton style={{ minHeight: 230 }} />
+        </CardBody>
+      </Card>
     );
   }
 
   if (conflicts.length === 0) {
     return (
-      <section style={{ border: '1px solid #e5e7eb', borderRadius: 8, padding: '1rem' }}>
-        <h2 style={{ marginTop: 0 }}>Conflicts</h2>
-        <p>No conflicts available. Ingested conflicts will appear here.</p>
-      </section>
+      <Card as="section">
+        <CardBody>
+          <h2 style={{ marginTop: 0 }}>Conflicts</h2>
+          <p>No conflicts available. Ingested conflicts will appear here.</p>
+        </CardBody>
+      </Card>
     );
   }
 
   return (
-    <section>
-      <h2>Conflicts</h2>
-      <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-        <thead>
-          <tr>
-            <th align="left">Conflict</th>
-            <th align="left">Region</th>
-            <th align="left">Status</th>
-            <th align="left">Events</th>
-            <th align="left">Updated</th>
-          </tr>
-        </thead>
-        <tbody>
-          {conflicts.map((conflict) => {
-            const eventCount = events.filter(
-              (event) => event.conflictSlug === conflict.slug,
-            ).length;
+    <Card as="section">
+      <CardBody>
+        <h2 style={{ marginTop: 0 }}>Conflicts</h2>
+        <Tabs style={{ marginBottom: 'var(--space-3)' }}>
+          <Tab isActive type="button">
+            All
+          </Tab>
+          <Tab type="button">Active</Tab>
+          <Tab type="button">Watchlist</Tab>
+        </Tabs>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableHeaderCell>Conflict</TableHeaderCell>
+              <TableHeaderCell>Region</TableHeaderCell>
+              <TableHeaderCell>Status</TableHeaderCell>
+              <TableHeaderCell>Events</TableHeaderCell>
+              <TableHeaderCell>Updated</TableHeaderCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {conflicts.map((conflict) => {
+              const eventCount = events.filter(
+                (event) => event.conflictSlug === conflict.slug,
+              ).length;
 
-            return (
-              <tr key={conflict.id} style={{ borderTop: '1px solid #e5e7eb' }}>
-                <td style={{ padding: '0.5rem 0' }}>{conflict.name}</td>
-                <td>{conflict.region}</td>
-                <td style={{ textTransform: 'capitalize' }}>{conflict.status}</td>
-                <td>{eventCount}</td>
-                <td>{formatDate(conflict.updatedAt)}</td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
-    </section>
+              return (
+                <TableRow key={conflict.id}>
+                  <TableCell>{conflict.name}</TableCell>
+                  <TableCell>{conflict.region}</TableCell>
+                  <TableCell>
+                    <Badge tone={statusTone(conflict.status)}>{conflict.status}</Badge>
+                  </TableCell>
+                  <TableCell>{eventCount}</TableCell>
+                  <TableCell>{formatDate(conflict.updatedAt)}</TableCell>
+                </TableRow>
+              );
+            })}
+          </TableBody>
+        </Table>
+      </CardBody>
+    </Card>
   );
 }

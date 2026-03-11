@@ -1,3 +1,5 @@
+import { Card, CardBody, Skeleton } from './ui';
+
 interface KpiCardProps {
   label: string;
   value: string;
@@ -8,24 +10,30 @@ interface KpiCardProps {
 export function KpiCard({ label, value, description, isLoading = false }: KpiCardProps) {
   if (isLoading) {
     return (
-      <div
-        aria-hidden
-        style={{
-          border: '1px solid #e5e7eb',
-          borderRadius: 8,
-          padding: '1rem',
-          minHeight: 106,
-          background: '#f3f4f6',
-        }}
-      />
+      <Card>
+        <CardBody>
+          <Skeleton style={{ minHeight: 106 }} />
+        </CardBody>
+      </Card>
     );
   }
 
   return (
-    <article style={{ border: '1px solid #e5e7eb', borderRadius: 8, padding: '1rem' }}>
-      <p style={{ margin: 0, color: '#4b5563' }}>{label}</p>
-      <p style={{ margin: '0.5rem 0', fontSize: '1.6rem', fontWeight: 700 }}>{value}</p>
-      <p style={{ margin: 0, color: '#6b7280' }}>{description}</p>
-    </article>
+    <Card as="article">
+      <CardBody>
+        <p style={{ color: 'var(--color-text-muted)', margin: 0 }}>{label}</p>
+        <p
+          style={{
+            fontSize: 'var(--font-size-600)',
+            fontWeight: 700,
+            lineHeight: 'var(--line-height-tight)',
+            margin: 'var(--space-2) 0',
+          }}
+        >
+          {value}
+        </p>
+        <p style={{ color: 'var(--color-text-muted)', margin: 0 }}>{description}</p>
+      </CardBody>
+    </Card>
   );
 }

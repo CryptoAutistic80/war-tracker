@@ -1,3 +1,5 @@
+import { Input } from './ui';
+
 interface AppHeaderProps {
   brand: string;
   navItems: string[];
@@ -6,33 +8,43 @@ interface AppHeaderProps {
 
 export function AppHeader({ brand, navItems, searchPlaceholder }: AppHeaderProps) {
   return (
-    <header style={{ borderBottom: '1px solid #e5e7eb', padding: '1rem 0' }}>
+    <header
+      style={{ borderBottom: '1px solid var(--color-border)', background: 'var(--color-surface)' }}
+    >
       <div
+        className="app-shell"
         style={{
-          margin: '0 auto',
-          maxWidth: 1200,
-          padding: '0 1rem',
-          display: 'flex',
-          gap: '1rem',
           alignItems: 'center',
+          display: 'flex',
+          gap: 'var(--space-4)',
           justifyContent: 'space-between',
+          paddingBlock: 'var(--space-4)',
         }}
       >
         <strong>{brand}</strong>
         <nav aria-label="Primary">
-          <ul style={{ display: 'flex', listStyle: 'none', gap: '1rem', margin: 0, padding: 0 }}>
+          <ul
+            style={{
+              display: 'flex',
+              gap: 'var(--space-4)',
+              listStyle: 'none',
+              margin: 0,
+              padding: 0,
+            }}
+          >
             {navItems.map((item) => (
-              <li key={item} style={{ textTransform: 'capitalize' }}>
+              <li
+                key={item}
+                style={{ color: 'var(--color-text-muted)', textTransform: 'capitalize' }}
+              >
                 {item}
               </li>
             ))}
           </ul>
         </nav>
-        <input
-          aria-label="Search"
-          placeholder={searchPlaceholder}
-          style={{ minWidth: 240, padding: '0.4rem 0.6rem' }}
-        />
+        <div style={{ minWidth: 240 }}>
+          <Input aria-label="Search" placeholder={searchPlaceholder} />
+        </div>
       </div>
     </header>
   );

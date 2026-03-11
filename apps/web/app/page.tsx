@@ -16,14 +16,12 @@ export default async function HomePage() {
         searchPlaceholder={data.searchPlaceholder}
       />
 
-      <div
-        style={{ margin: '0 auto', maxWidth: 1200, padding: '1rem', display: 'grid', gap: '1rem' }}
-      >
+      <div className="app-shell stack-lg">
         <section
           aria-label="Summary metrics"
           style={{
             display: 'grid',
-            gap: '1rem',
+            gap: 'var(--space-4)',
             gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
           }}
         >
@@ -38,7 +36,11 @@ export default async function HomePage() {
         </section>
 
         <section
-          style={{ display: 'grid', gap: '1rem', gridTemplateColumns: '280px minmax(0, 1fr)' }}
+          style={{
+            display: 'grid',
+            gap: 'var(--space-4)',
+            gridTemplateColumns: '280px minmax(0, 1fr)',
+          }}
         >
           <FilterPanel regions={data.regions} />
           <ConflictList conflicts={data.conflicts} events={data.events} />
