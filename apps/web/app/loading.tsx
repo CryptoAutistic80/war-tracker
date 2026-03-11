@@ -32,7 +32,7 @@ export default function Loading() {
         <section
           style={{ display: 'grid', gap: '1rem', gridTemplateColumns: '280px minmax(0, 1fr)' }}
         >
-          <FilterPanel regions={[]} isLoading />
+          <FilterPanel regions={[]} providers={[]} isLoading />
           <ConflictList conflicts={[]} events={[]} isLoading />
         </section>
 
