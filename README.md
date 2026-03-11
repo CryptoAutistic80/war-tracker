@@ -45,9 +45,13 @@ Monorepo scaffold for the War Tracker platform, organized as a pnpm workspace.
 - `pnpm typecheck` — Run TypeScript checks across all workspaces.
 - `pnpm format` — Format the repository with Prettier.
 - `pnpm test` — Run tests across all workspaces (placeholder where not implemented).
+- `pnpm db:migrate` — Apply SQL migrations in `packages/db/migrations`.
+- `pnpm db:seed` — Apply baseline seed SQL in `packages/db/seeds`.
 
 ## Quality tooling
 
 - ESLint (Next.js + TypeScript rules) configured at repo root.
 - Prettier formatting configured at repo root.
 - Optional git hooks via Husky + lint-staged (`.husky/pre-commit`).
+
+Database workflow docs: `packages/db/README.md`.
