@@ -1,0 +1,1 @@
+REFRESH MATERIALIZED VIEW CONCURRENTLY conflicts_by_region_mv;
