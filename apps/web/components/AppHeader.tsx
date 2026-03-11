@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { Input } from './ui';
 
 interface AppHeaderProps {
@@ -33,11 +34,13 @@ export function AppHeader({ brand, navItems, searchPlaceholder }: AppHeaderProps
             }}
           >
             {navItems.map((item) => (
-              <li
-                key={item}
-                style={{ color: 'var(--color-text-muted)', textTransform: 'capitalize' }}
-              >
-                {item}
+              <li key={item}>
+                <Link
+                  href="/"
+                  style={{ color: 'var(--color-text-muted)', textTransform: 'capitalize' }}
+                >
+                  {item}
+                </Link>
               </li>
             ))}
           </ul>
