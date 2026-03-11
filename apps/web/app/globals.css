@@ -140,3 +140,64 @@ main {
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 }
+
+.error-shell {
+  align-items: center;
+  display: grid;
+  min-height: 100vh;
+  padding: var(--space-4);
+}
+
+.error-card {
+  margin: 0 auto;
+  max-width: 720px;
+  width: 100%;
+}
+
+.error-card__body {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.error-eyebrow {
+  color: var(--color-accent);
+  font-size: var(--font-size-200);
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.error-title {
+  font-size: var(--font-size-600);
+  line-height: var(--line-height-tight);
+  margin: 0;
+}
+
+.error-message {
+  color: var(--color-text-muted);
+  margin: 0;
+  max-width: 65ch;
+}
+
+.error-reference {
+  background: var(--color-surface-muted);
+  border-radius: var(--radius-sm);
+  color: var(--color-text-muted);
+  margin: 0;
+  padding: var(--space-2) var(--space-3);
+}
+
+.error-actions {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+.error-support-link {
+  color: var(--color-accent);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
