@@ -1,9 +1,11 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 
-import { buildConflictFeedResponse } from '../app/api/conflicts/[slug]/feed/route';
-import { buildConflictMapResponse } from '../app/api/conflicts/[slug]/map/route';
-import { buildEventDetailsResponse } from '../app/api/events/[id]/route';
+import {
+  buildConflictFeedResponse,
+  buildConflictMapResponse,
+  buildEventDetailsResponse,
+} from '../lib/api/responseBuilders';
 import {
   applyPublicVisibilityFilter,
   applyPublicVisibilityFilters,
