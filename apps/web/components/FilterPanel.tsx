@@ -32,7 +32,7 @@ export function FilterPanel({
         ) : regions.length === 0 ? (
           <p>No conflict regions available yet.</p>
         ) : (
-          <form method="get" className="stack-md">
+          <form method="get" className="stack-md" aria-label="Conflict filters">
             <label style={labelStyle()}>
               <span style={{ color: 'var(--color-text-muted)', fontSize: 'var(--font-size-200)' }}>
                 Region
@@ -101,7 +101,9 @@ export function FilterPanel({
 
             <div style={{ display: 'flex', gap: 'var(--space-2)', alignItems: 'center' }}>
               <Button type="submit">Apply filters</Button>
-              <Link href="/">Reset</Link>
+              <Link href="/" aria-label="Reset all filters">
+                Reset
+              </Link>
             </div>
           </form>
         )}

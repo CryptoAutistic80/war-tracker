@@ -10,7 +10,10 @@ export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en">
       <body>
-        <div style={{ minHeight: '100vh' }}>{children}</div>
+        <a className="skip-link" href="#main-content">
+          Skip to main content
+        </a>
+        <div className="page-root">{children}</div>
       </body>
     </html>
   );

@@ -40,6 +40,15 @@
   color: var(--color-text);
 }
 
+a:focus-visible,
+.ui-button:focus-visible,
+.ui-input:focus-visible,
+.ui-select:focus-visible,
+.ui-tab:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--color-accent) 65%, white);
+  outline-offset: 2px;
+}
+
 .ui-input,
 .ui-select {
   background: var(--color-surface);

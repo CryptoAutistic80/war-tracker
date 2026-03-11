@@ -19,22 +19,15 @@ export default async function HomePage({ searchParams }: HomePageProps) {
   const data = await loadHomePageData(filters);
 
   return (
-    <main>
+    <>
       <AppHeader
         brand={data.brand}
         navItems={data.navItems}
         searchPlaceholder={data.searchPlaceholder}
       />
 
-      <div className="app-shell stack-lg">
-        <section
-          aria-label="Summary metrics"
-          style={{
-            display: 'grid',
-            gap: 'var(--space-4)',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
-          }}
-        >
+      <main id="main-content" className="app-shell stack-lg" tabIndex={-1}>
+        <section aria-label="Summary metrics" className="kpi-grid">
           {data.kpis.map((kpi) => (
             <KpiCard
               key={kpi.label}
@@ -69,13 +62,7 @@ export default async function HomePage({ searchParams }: HomePageProps) {
           </CardBody>
         </Card>
 
-        <section
-          style={{
-            display: 'grid',
-            gap: 'var(--space-4)',
-            gridTemplateColumns: '280px minmax(0, 1fr)',
-          }}
-        >
+        <section className="dashboard-layout" aria-label="Conflict dashboard">
           <FilterPanel regions={data.regions} providers={data.providers} currentFilters={filters} />
           <ConflictList
             conflicts={data.conflicts}
@@ -85,7 +72,13 @@ export default async function HomePage({ searchParams }: HomePageProps) {
         </section>
 
         <MapPreview conflicts={data.conflicts} />
-      </div>
-    </main>
+
+        <footer className="page-footer" aria-label="Application footer">
+          <p style={{ margin: 0, color: 'var(--color-text-muted)' }}>
+            War Tracker data updates throughout the day.
+          </p>
+        </footer>
+      </main>
+    </>
   );
 }
