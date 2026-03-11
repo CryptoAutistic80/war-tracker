@@ -10,7 +10,7 @@
     "build": "tsc --project tsconfig.json",
     "lint": "eslint \"src/**/*.{ts,tsx}\"",
     "typecheck": "tsc --project tsconfig.json --noEmit",
-    "test": "echo \"No tests configured for @war-tracker/validation yet\""
+    "test": "tsx --test tests/internal-jobs.test.ts"
   },
   "dependencies": {
     "zod": "^3.23.8"

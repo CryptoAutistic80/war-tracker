@@ -55,3 +55,21 @@ Monorepo scaffold for the War Tracker platform, organized as a pnpm workspace.
 - Optional git hooks via Husky + lint-staged (`.husky/pre-commit`).
 
 Database workflow docs: `packages/db/README.md`.
+
+## CI and branch protection expectations
+
+The repository CI workflow runs on pull requests and pushes to `main` with required checks for:
+
+- dependency installation (`pnpm install --frozen-lockfile`)
+- lint (`pnpm lint`)
+- typecheck (`pnpm typecheck`)
+- web build (`pnpm --filter @war-tracker/web build`)
+- tests focused on validation + API utilities:
+  - `pnpm --filter @war-tracker/validation test`
+  - `pnpm --filter @war-tracker/web test`
+
+Branch protection for the default/protected branch should enforce:
+
+- all CI checks are required before merge
+- direct pushes are disabled (changes must land via pull request)
+- pull requests use the repository PR template, including risk/safety checklist acknowledgement
